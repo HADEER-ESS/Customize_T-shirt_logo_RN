@@ -1,4 +1,3 @@
-/** @type {import('ts-jest').JestConfigWithTsJest} **/
 module.exports = {
   preset: "react-native",
   transform: {
@@ -9,6 +8,7 @@ module.exports = {
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"], // File extensions to resolve
   moduleNameMapper: {
     "\\.(css|less|scss|sass)$": "identity-obj-proxy", // Mock styles
+    '\\.(ttf)$': '<rootDir>/__mocks__/file-mock.js',  // Mock Fonts for Icons
   },
   collectCoverage: true, // Enable coverage collection
   collectCoverageFrom: ["src/**/*.{ts,tsx}"], // Collect coverage from TS files
