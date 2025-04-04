@@ -18,6 +18,7 @@ const HomeViewController = () => {
     };
 
     const uploadGalleryImage = async () => {
+        console.log("enter upload Gallery image function")
         try {
             await launchImageLibrary(
                 {
@@ -28,11 +29,12 @@ const HomeViewController = () => {
                     quality: 0.8,
                 },
                 (response) => {
+                    console.log("responseeeeeeeeeee base-64 ", response);
                     if (response.didCancel || response.errorCode) {
-                        console.log("response error is ", response)
+                        console.log("response error is ", response);
                     }
                     else {
-                        setUploadImage(`data:image/png;base64,${response.assets[0].base64}`)
+                        setUploadImage(`data:image/png;base64,${response.assets[0].base64}`);
                     }
                 }
             )
