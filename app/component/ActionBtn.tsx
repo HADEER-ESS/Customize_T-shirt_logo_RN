@@ -2,16 +2,17 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 type props = {
-    upload: () => void
+    upload: () => void,
+    title: string
 }
 
-const ActionBtn = ({ upload }: props) => {
+const ActionBtn = ({ upload, title }: props) => {
     return (
         <TouchableOpacity
             style={styles.btnContainerStyle}
             onPress={upload}
         >
-            <Text style={styles.textStyle}>Upload Image</Text>
+            <Text style={styles.textStyle}>{title}</Text>
         </TouchableOpacity>
     )
 }

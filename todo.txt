@@ -1,14 +1,26 @@
-1- create a 2D T-shirt view in white color
-2- make two btn one for left and another for right rotate for T-short
-3- when press on right the T-shirt rotats to right based on the last position
+1- create a 2D T-shirt view in white color              => DONE
+2- make two btn one for left and another for right rotate for T-short           => DONE
+3- when press on right the T-shirt rotats to right based on the last position       =>DONE
 4- I will make a number indicator for switch between T-shirt view 
     1- for front view
-    2- for side view
     3- for back view
-    4- for the second side view
 
 5- based on the number I will display the T-shirt
 6- Feature => ability to change the T-shirt color => 
 7- so I need to make the color of the t-shirt dynamic, and I can not store all colors for T-shirt
 8- need to mke the T-shirt in 2D dynamic view using SVG or SKI...
 
+//==> REMAIN TASK => Change the T-shirt COLOR from Pallet
+///////////////////////////////// NEW TASKS /////////////////////////////////
+
+1- upload a multiple image and drop them on T-shirt
+2- when switch from back to front, the position of logo remains
+3- create a download btn to download the T-shirt after updates
+
+
+------------------------------------------------------------------------------------------
+18 April 2025
+=============
+
+1-able to rotate and resize the image
+2-download T-shirt with the image on it    => DONE

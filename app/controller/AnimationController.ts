@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import { Animated, PanResponder } from 'react-native';
 
+
 type ZoneValue = {
     height: number,
     width: number,
@@ -10,6 +11,7 @@ type ZoneValue = {
 
 const AnimationController = () => {
     const [dropZoneValues, setDropZoneValues] = useState<ZoneValue | null>(null);
+
     const position = useRef({ x: 0, y: 0 }).current;
     const pan = useRef(new Animated.ValueXY()).current;
 
@@ -59,6 +61,10 @@ const AnimationController = () => {
         setDropZoneValues(event.nativeEvent.layout);
         console.log('new drop is ', event.nativeEvent.layout);
     };
+
+
+
+
 
 
     return {

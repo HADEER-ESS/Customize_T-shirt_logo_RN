@@ -18,7 +18,6 @@ const HomeViewController = () => {
     };
 
     const uploadGalleryImage = async () => {
-        console.log("enter upload Gallery image function")
         try {
             await launchImageLibrary(
                 {
