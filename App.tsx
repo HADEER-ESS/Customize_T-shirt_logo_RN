@@ -14,10 +14,14 @@ import { View } from 'react-native';
 import TshirtSwitchBtnComponent from './app/component/TshirtSwitchBtnComponent';
 import ActionBtn from './app/component/ActionBtn';
 import AnimationController from './app/controller/AnimationController';
+import ViewShot from 'react-native-view-shot';
+import DownloadImageController from './app/controller/DownloadImageController';
 
 function App() {
   const { uploadImage, currentState, updateTshirtState, uploadGalleryImage } = HomeViewController();
   const { pan, panResponser, handleEventDrop } = AnimationController();
+  const { downloadImageHandler, screenShotRef } = DownloadImageController();
+
 
   return (
     <ScrollView style={styles.screenStyle}>
@@ -25,11 +29,13 @@ function App() {
       <View
         onLayout={(event) => handleEventDrop(event)}
       >
-        {
-          currentState === 0 ?
-            <FrontPhoto color="#FFFFFF" /> :
-            <BackPhoto color="#FFFFFF" />
-        }
+        <ViewShot ref={screenShotRef}>
+          {
+            currentState === 0 ?
+              <FrontPhoto color="#FFFFFF" /> :
+              <BackPhoto color="#FFFFFF" />
+          }
+        </ViewShot>
       </View>
       {
         uploadImage &&
@@ -47,7 +53,8 @@ function App() {
         <TshirtSwitchBtnComponent name="return-down-back-outline" updateSwitch={updateTshirtState} />
         <TshirtSwitchBtnComponent name="return-down-forward-outline" updateSwitch={updateTshirtState} />
       </View>
-      <ActionBtn upload={uploadGalleryImage} />
+      <ActionBtn title='Upload Image' upload={uploadGalleryImage} />
+      <ActionBtn title='Download Image' upload={downloadImageHandler} />
     </ScrollView>
   );
 }
