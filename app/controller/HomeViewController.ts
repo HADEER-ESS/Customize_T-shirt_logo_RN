@@ -1,14 +1,15 @@
 import { useState } from 'react';
+import { ToastAndroid } from 'react-native';
 import { launchImageLibrary } from 'react-native-image-picker';
 
 
 const HomeViewController = () => {
+    const SLOT_COUNT = 4;
     const [currentState, setCurrentState] = useState<number>(0);
     const [updateColor, setUpdateColor] = useState<string>('#FFFFFF');
-    const [uploadImage, setUploadImage] = useState<string | undefined>(undefined)
+    const [uploadImage, setUploadImage] = useState<string[]>([]);
 
     const updateTshirtState = () => {
-        console.log("Called ", currentState)
         let state = currentState === 0 ? 1 : 0;
         setCurrentState(state);
     };
@@ -18,6 +19,10 @@ const HomeViewController = () => {
     };
 
     const uploadGalleryImage = async () => {
+        if (uploadImage.length > 3) {
+            ToastAndroid.show('Sorry!! You Can Not add more than 4 Image', 1000);
+            return;
+        }
         try {
             await launchImageLibrary(
                 {
@@ -28,12 +33,10 @@ const HomeViewController = () => {
                     quality: 0.8,
                 },
                 (response) => {
-                    console.log("responseeeeeeeeeee base-64 ", response);
                     if (response.didCancel || response.errorCode) {
-                        console.log("response error is ", response);
                     }
                     else {
-                        setUploadImage(`data:image/png;base64,${response.assets[0].base64}`);
+                        setUploadImage(prev => [...(prev || []), `data:image/png;base64,${response.assets[0].base64}`])
                     }
                 }
             )
@@ -51,6 +54,7 @@ const HomeViewController = () => {
         updateTshirtColor,
         uploadGalleryImage,
         uploadImage,
+        SLOT_COUNT,
     };
 };
 
