@@ -1,17 +1,20 @@
 import React from 'react';
-import { StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import { GestureDetector } from 'react-native-gesture-handler';
 import Animated from 'react-native-reanimated';
 import InteractiveImageController from '../controller/InteractiveImageController';
+import HandleRemoveImageAndSlots from '../controller/HandleRemoveImageAndSlots';
 
 type props = {
     uri: string,
+    idx: number
 }
 
-const InteractiveImage = ({ uri }: props) => {
+const InteractiveImage = ({ uri, idx }: props) => {
     const { composed, animatedStyle } = InteractiveImageController();
+    const { longPressDialog } = HandleRemoveImageAndSlots();
     return (
-        <TouchableWithoutFeedback onLongPress={() => {/*On long press, it must show a dialog if i would like to remove img*/ }}>
+        <TouchableOpacity onLongPress={() => { longPressDialog(idx) }}>
             <GestureDetector gesture={composed}>
                 <Animated.Image
                     source={{ uri }}
@@ -19,7 +22,7 @@ const InteractiveImage = ({ uri }: props) => {
                     resizeMode={'contain'}
                 />
             </GestureDetector>
-        </TouchableWithoutFeedback>
+        </TouchableOpacity>
 
     );
 };

@@ -30,7 +30,7 @@ const HomeViewController = () => {
                     includeBase64: true,
                     maxWidth: 50,
                     maxHeight: 50,
-                    quality: 0.8,
+                    quality: 1,
                 },
                 (response) => {
                     if (response.didCancel || response.errorCode) {
@@ -46,6 +46,15 @@ const HomeViewController = () => {
 
     }
 
+    const removeImageFromStack = (idx: number): void => {
+        console.log("delete function called ...", idx)
+        setUploadImage(prev => {
+            console.log("prev image is ", prev);
+            return prev?.filter((_, index) => index !== idx) || []
+        }
+        )
+    };
+
 
     return {
         currentState,
@@ -55,6 +64,7 @@ const HomeViewController = () => {
         uploadGalleryImage,
         uploadImage,
         SLOT_COUNT,
+        removeImageFromStack,
     };
 };
 

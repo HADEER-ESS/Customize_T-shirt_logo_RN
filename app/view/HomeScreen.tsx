@@ -26,7 +26,8 @@ const HomeScreen = () => {
                     <View style={styles.FlexImageContainer}>
                         {
                             uploadImage.map((item, index) =>
-                                <InteractiveImage key={`no. ${index}`} uri={item} />
+                                <InteractiveImage idx={index} key={`no. ${index}`} uri={item} />
+
                             )
                         }
 
