@@ -17,12 +17,13 @@ function App() {
     >
       <HomeScreen />
     </GestureHandlerRootView>
-  );
+  )
 }
-export default App;
+export default App
 
 const styles = StyleSheet.create({
   screenStyle: {
     flex: 1,
+    backgroundColor: "#dfdfdf"
   },
-});
+})
