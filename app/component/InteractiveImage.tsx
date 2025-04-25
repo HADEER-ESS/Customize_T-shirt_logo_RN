@@ -3,31 +3,30 @@ import { StyleSheet, TouchableOpacity } from 'react-native';
 import { GestureDetector } from 'react-native-gesture-handler';
 import Animated from 'react-native-reanimated';
 import InteractiveImageController from '../controller/InteractiveImageController';
-import HandleRemoveImageAndSlots from '../controller/HandleRemoveImageAndSlots';
+import ImageObj from '../type/ImageObj';
 
 type props = {
-    uri: string,
-    idx: number
+    data: ImageObj,
+    action: (idx: number) => void
 }
 
-const InteractiveImage = ({ uri, idx }: props) => {
-    const { composed, animatedStyle } = InteractiveImageController();
-    const { longPressDialog } = HandleRemoveImageAndSlots();
+const InteractiveImage = ({ data, action }: props) => {
+    const { composed, animatedStyle } = InteractiveImageController()
     return (
-        <TouchableOpacity onLongPress={() => { longPressDialog(idx) }}>
+        <TouchableOpacity onLongPress={() => action(data.id)}>
             <GestureDetector gesture={composed}>
                 <Animated.Image
-                    source={{ uri }}
+                    source={{ uri: data.src }}
                     style={[styles.image, animatedStyle]}
                     resizeMode={'contain'}
                 />
             </GestureDetector>
         </TouchableOpacity>
 
-    );
-};
+    )
+}
 
-export default InteractiveImage;
+export default InteractiveImage
 
 const styles = StyleSheet.create({
     image: {
@@ -35,4 +34,4 @@ const styles = StyleSheet.create({
         height: 80,
         zIndex: 9999,
     },
-});
+})

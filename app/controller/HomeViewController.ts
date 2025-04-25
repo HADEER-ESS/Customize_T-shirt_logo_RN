@@ -1,27 +1,29 @@
 import { useState } from 'react';
-import { ToastAndroid } from 'react-native';
+import { Alert, ToastAndroid } from 'react-native';
 import { launchImageLibrary } from 'react-native-image-picker';
+import ImageObj from '../type/ImageObj';
+
 
 
 const HomeViewController = () => {
-    const SLOT_COUNT = 4;
-    const [currentState, setCurrentState] = useState<number>(0);
-    const [updateColor, setUpdateColor] = useState<string>('#FFFFFF');
-    const [uploadImage, setUploadImage] = useState<string[]>([]);
+    const SLOT_COUNT = 4
+    const [currentState, setCurrentState] = useState<number>(0)
+    const [updateColor, setUpdateColor] = useState<string>('#FFFFFF')
+    const [uploadImage, setUploadImage] = useState<ImageObj[]>([])
 
     const updateTshirtState = () => {
-        let state = currentState === 0 ? 1 : 0;
-        setCurrentState(state);
-    };
+        let state = currentState === 0 ? 1 : 0
+        setCurrentState(state)
+    }
 
     const updateTshirtColor = (color: string) => {
-        setUpdateColor(color);
-    };
+        setUpdateColor(color)
+    }
 
     const uploadGalleryImage = async () => {
         if (uploadImage.length > 3) {
-            ToastAndroid.show('Sorry!! You Can Not add more than 4 Image', 1000);
-            return;
+            ToastAndroid.show('Sorry!! You Can Not add more than 4 Image', 1000)
+            return
         }
         try {
             await launchImageLibrary(
@@ -36,7 +38,14 @@ const HomeViewController = () => {
                     if (response.didCancel || response.errorCode) {
                     }
                     else {
-                        setUploadImage(prev => [...(prev || []), `data:image/png;base64,${response.assets[0].base64}`])
+                        setUploadImage(
+                            [...uploadImage,
+                            {
+                                id: uploadImage.length + 1,
+                                src: `data:image/png;base64,${response.assets[0].base64}`
+                            }
+                            ]
+                        )
                     }
                 }
             )
@@ -46,14 +55,24 @@ const HomeViewController = () => {
 
     }
 
-    const removeImageFromStack = (idx: number): void => {
-        console.log("delete function called ...", idx)
-        setUploadImage(prev => {
-            console.log("prev image is ", prev);
-            return prev?.filter((_, index) => index !== idx) || []
-        }
+    const longPressDialog = (id: number): void => {
+        Alert.alert(
+            'Delete Image',
+            'Are you sure you want to remove this image?',
+            [
+                { text: 'Cancel', style: 'cancel' },
+                { text: 'Delete', style: 'destructive', onPress: () => removeImageFromStack(id) }
+            ]
         )
-    };
+    }
+
+    const removeImageFromStack = (id: number): void => {
+        console.log("idx ", id)
+
+        setUploadImage(
+            uploadImage.filter((item) => item.id !== id)
+        )
+    }
 
 
     return {
@@ -64,9 +83,9 @@ const HomeViewController = () => {
         uploadGalleryImage,
         uploadImage,
         SLOT_COUNT,
-        removeImageFromStack,
-    };
-};
+        longPressDialog,
+    }
+}
 
 
-export default HomeViewController;
+export default HomeViewController

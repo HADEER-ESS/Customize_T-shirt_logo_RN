@@ -10,8 +10,8 @@ import HomeViewController from '../controller/HomeViewController';
 import DownloadImageController from '../controller/DownloadImageController';
 
 const HomeScreen = () => {
-    const { uploadImage, currentState, updateTshirtState, uploadGalleryImage } = HomeViewController();
-    const { downloadImageHandler, screenShotRef } = DownloadImageController();
+    const { uploadImage, currentState, updateTshirtState, uploadGalleryImage, longPressDialog } = HomeViewController()
+    const { downloadImageHandler, screenShotRef } = DownloadImageController()
     return (
         <View>
             <Text>Select T-Shirt Color</Text>
@@ -25,9 +25,8 @@ const HomeScreen = () => {
                     uploadImage?.length &&
                     <View style={styles.FlexImageContainer}>
                         {
-                            uploadImage.map((item, index) =>
-                                <InteractiveImage idx={index} key={`no. ${index}`} uri={item} />
-
+                            uploadImage.map(item =>
+                                <InteractiveImage action={longPressDialog} key={`no.${item.id}`} data={item} />
                             )
                         }
 
@@ -41,10 +40,10 @@ const HomeScreen = () => {
             <ActionBtn title="Upload Image" upload={uploadGalleryImage} />
             <ActionBtn title="Download Image" upload={downloadImageHandler} />
         </View>
-    );
-};
+    )
+}
 
-export default HomeScreen;
+export default HomeScreen
 
 const styles = StyleSheet.create({
     SwitchBtnContainer: {
@@ -57,4 +56,4 @@ const styles = StyleSheet.create({
     FlexImageContainer: {
         flexDirection: 'row',
     },
-});
+})
