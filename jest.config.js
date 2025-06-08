@@ -1,5 +1,6 @@
 module.exports = {
   preset: "react-native",
+  setupFiles: ["./node_modules/react-native-gesture-handler/jestSetup.js"],
   transform: {
     "^.+\\.(ts|tsx)$": "babel-jest", // Use Babel for TypeScript transformation
   },
@@ -13,4 +14,7 @@ module.exports = {
   collectCoverage: true, // Enable coverage collection
   collectCoverageFrom: ["src/**/*.{ts,tsx}"], // Collect coverage from TS files
   coverageReporters: ["json", "lcov"], // Set coverage report formats
+  transformIgnorePatterns: [
+    "node_modules/(?!(@react-native|react-native|react-native-reanimated|react-native-image-picker)/)"
+  ],
 };
